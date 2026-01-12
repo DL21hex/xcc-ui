@@ -1,14 +1,29 @@
-import { A } from "@solidjs/router";
-import Counter from "~/components/Counter";
+import { For } from "solid-js";
+import CTA from "~/components/CTA";
+import Card from "~/components/Card";
+import homeData from "~/data/home.json";
 
-export default function Home()
-{
-	return (
-		<div data-slot="card" class="text-card-foreground flex flex-col gap-6 rounded-xl border py-6 border-l-4 overflow-hidden transition-all duration-300 hover:shadow-md shadow-sm border-l-amber-500 bg-gradient-to-r from-amber-50 to-white">
-			<div data-slot="card-content" class="p-4 sm:p-5">
-				<div class="flex items-start gap-4">
-					<div class="p-2.5 rounded-xl text-amber-500 bg-amber-100 shrink-0">
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-alert h-5 w-5"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg></div><div class="flex-1 min-w-0"><div class="flex items-center gap-2 mb-1"><span data-slot="badge" class="inline-flex items-center justify-center rounded-md border px-2 py-0.5 w-fit whitespace-nowrap shrink-0 [&amp;&gt;svg]:size-3 gap-1 [&amp;&gt;svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden border-transparent [a&amp;]:hover:bg-secondary/90 text-xs font-medium bg-amber-100 text-amber-700 hover:bg-amber-100">Atención</span><span class="text-xs text-muted-foreground">5 días restantes</span></div><h3 class="font-semibold text-slate-900 mb-1">Encuesta de clima laboral pendiente</h3><p class="text-sm text-muted-foreground line-clamp-2">Tu opinión es importante. Completa la encuesta antes del 20 de enero.</p></div><div class="flex items-center gap-2 shrink-0"><a href="/encuesta"><button data-slot="button" class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive h-8 rounded-md gap-1.5 px-3 has-[&gt;svg]:px-2.5 bg-amber-600 hover:bg-amber-700 text-white">Realizar encuesta<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right h-4 w-4 ml-1.5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></button></a><button data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent dark:hover:bg-accent/50 size-9 h-8 w-8 text-muted-foreground hover:text-slate-700"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x h-4 w-4"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg><span class="sr-only">Descartar</span></button></div></div></div>
-		</div>
-	);
+interface ComponentItem {
+  component: string;
+  props: Record<string, any>;
+}
+
+const componentMap: Record<string, any> = {
+  CTA: CTA,
+  Card: Card,
+};
+
+export default function Home() {
+  const items = homeData as ComponentItem[];
+
+  return (
+    <div class="flex flex-col gap-6">
+      <For each={items}>
+        {(item) => {
+          const Component = componentMap[item.component];
+          return Component ? <Component {...item.props} /> : null;
+        }}
+      </For>
+    </div>
+  );
 }

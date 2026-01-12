@@ -1,0 +1,58 @@
+{
+  "menuItems": [
+    {
+      "id": "inicio",
+      "label": "Inicio",
+      "href": "/",
+      "icon": "home"
+    },
+    {
+      "id": "talento-humano",
+      "label": "Talento Humano",
+      "href": "/talento-humano/empleados",
+      "icon": "users"
+    },
+    {
+      "id": "finanzas",
+      "label": "Finanzas",
+      "href": "/finanzas",
+      "icon": "trending-up"
+    },
+    {
+      "id": "sst",
+      "label": "SST",
+      "href": "/sst",
+      "icon": "shield"
+    },
+    {
+      "id": "produccion",
+      "label": "Producción",
+      "href": "/produccion",
+      "icon": "factory"
+    },
+    {
+      "id": "compras",
+      "label": "Compras",
+      "href": "/compras",
+      "icon": "shopping-cart"
+    },
+    {
+      "id": "tecnologias",
+      "label": "Tecnologías",
+      "href": "/tecnologias",
+      "icon": "cpu"
+    },
+    {
+      "id": "seguridad",
+      "label": "Seguridad Física",
+      "href": "/seguridad",
+      "icon": "lock"
+    },
+    {
+      "id": "administracion",
+      "label": "Administración",
+      "href": "/administracion/roles",
+      "icon": "settings"
+    }
+  ]
+}

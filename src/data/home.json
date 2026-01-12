@@ -1,0 +1,33 @@
+[
+	{
+		"component": "CTA",
+		"props": {
+			"type": "warning",
+			"badge": "5 días restantes",
+			"title": "Encuesta de clima laboral pendiente",
+			"description": "Tu opinión es importante. Completa la encuesta antes del 20 de enero.",
+			"button_name": "Realizar encuesta",
+			"button_href": "/encuesta"
+		}
+	},
+	{
+		"component": "CTA",
+		"props": {
+			"type": "info",
+			"badge": "10 días restantes",
+			"title": "Encuesta de clima satisfacción pendiente",
+			"description": "Tu opinión es importante.",
+			"button_name": "Realizar encuesta",
+			"button_href": "/encuesta2"
+		}
+	},
+	{
+		"component": "Card",
+		"props": {
+			"icon": "document",
+			"title": "Certificados laborales",
+			"description": "Certificado con y sin salario",
+			"href": "/certificados"
+		}
+	}
+]

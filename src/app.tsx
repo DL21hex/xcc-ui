@@ -1,4 +1,4 @@
-import { Router } from "@solidjs/router";
+import { Router, useLocation } from "@solidjs/router";
 import { FileRoutes } from "@solidjs/start/router";
 import { Suspense, createSignal, onMount, Show } from "solid-js";
 import Nav from "~/components/Nav";
@@ -48,9 +48,12 @@ export default function App()
 
 return (
 	<Router
-	root={(props) => (
+	root={(props) => {
+		const location = useLocation();
+		return (
 		<div class="flex h-screen bg-background">
 			<style>{`:root {--primary: ${template().tenant?.primary_color}; --light-color: ${template().tenant?.light_color}; --logo-width: ${template().tenant?.logo_width};}`}</style>
+		<Show when={location.pathname !== "/login"}>
 		<aside class="border-r border-sidebar-border bg-sidebar flex flex-col h-screen transition-all duration-300 ease-in-out w-[240px]">
 			<div class="h-16 flex items-center justify-between px-3 border-b border-sidebar-border">
 			<div class="flex items-center gap-2.5 overflow-hidden">
@@ -77,9 +80,10 @@ return (
 			</div>
 			</div>
 		</aside>
+		</Show>
 
 		<div class="flex-1 flex flex-col">
-			<Show when={template().header}>
+			<Show when={location.pathname !== "/login" && template().header}>
 				<header class="h-16 border-b border-border bg-card/80 backdrop-blur-sm flex items-center justify-between px-4">
 				<div class="flex items-center gap-3">
 					<button data-slot="tooltip-trigger" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent dark:hover:bg-accent/50 size-9 text-muted-foreground hover:text-foreground" data-state="closed">
@@ -99,13 +103,14 @@ return (
 				</header>
 			</Show>
 			<main id="app" class="bg-dots-pattern flex-1 overflow-auto bg-gradient-to-br from-slate-50 via-white to-slate-50 dot-pattern w-full">
-				<div class="max-w-7xl mx-auto relative z-10 p-6 lg:p-8 w-full" id="app-content">
+				<div class={location.pathname === "/login" ? "w-full relative z-10" : "max-w-7xl mx-auto relative z-10 p-6 lg:p-8 w-full"} id="app-content">
 				<Suspense>{props.children}</Suspense>
 				</div>
 			</main>
 		</div>
 		</div>
-	)}
+		);
+	}}
 	>
 	<FileRoutes />
 	</Router>

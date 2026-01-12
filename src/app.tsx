@@ -4,44 +4,53 @@ import { Suspense, createSignal, onMount, Show } from "solid-js";
 import Nav from "~/components/Nav";
 import "./app.css";
 
-interface TenantInfo { name: string; logo: string;}
+interface TenantInfo { name: string; logo: string; primary_color: string; light_color: string; logo_width: string; }
 interface MenuItem { id: string; label: string; href: string; icon: string; is_active?: boolean;}
 interface HeaderData { full_name: string; position_name: string; avatar: string;}
 
 interface TemplateData {
-	tenant?: TenantInfo;
+	tenant: TenantInfo;
 	main_menu: MenuItem[];
-	header?: HeaderData;
+	header: HeaderData;
 }
 
 const fetchTemplate = async () => {
-	try {
+	try
+	{
 		const response = await fetch("http://localhost:80/xcctechpeople/tools/sandbox/template_public");
 		if (!response.ok) {
 			throw new Error(`Error ${response.status}`);
 		}
 		return response.json() as Promise<TemplateData>;
-	} catch (e) {
-		console.error("Failed to load template", e);
-		return { tenant: { name: "", logo: "" }, main_menu: [] };
+	}
+	catch (e)
+	{
+		return {
+			tenant: { name: "", logo: "", primary_color: "", light_color: "", logo_width: "" },
+			main_menu: [/* TODO: Skeleton...*/ ],
+			header: { full_name: "", position_name: "", avatar: "" }
+		};
 	}
 };
 
-export default function App() {
-const [template, setTemplate] = createSignal<TemplateData>({
-	main_menu: [],
-	tenant: undefined
-});
+export default function App()
+{
+	const [template, setTemplate] = createSignal<TemplateData>({
+		tenant: { name: "Skeleton...", logo: "images/xcc_small.png", primary_color: "#219ebc", light_color: "#E3F6FB", logo_width: "96px" },
+		main_menu: [],
+		header: { full_name: "Skeleton...", position_name: "Skeleton...", avatar: "" }
+	});
 
-onMount(async () => {
-	const data = await fetchTemplate();
-	setTemplate(data);
-});
+	onMount(async () => {
+		const data = await fetchTemplate();
+		setTemplate(data);
+	});
 
 return (
 	<Router
 	root={(props) => (
 		<div class="flex h-screen bg-background">
+			<style>{`:root {--primary: ${template().tenant?.primary_color}; --light-color: ${template().tenant?.light_color}; --logo-width: ${template().tenant?.logo_width};}`}</style>
 		<aside class="border-r border-sidebar-border bg-sidebar flex flex-col h-screen transition-all duration-300 ease-in-out w-[240px]">
 			<div class="h-16 flex items-center justify-between px-3 border-b border-sidebar-border">
 			<div class="flex items-center gap-2.5 overflow-hidden">

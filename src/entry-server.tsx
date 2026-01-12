@@ -1,24 +1,34 @@
-// @refresh reload
 import { createHandler, StartServer } from "@solidjs/start/server";
-import { getRequestEvent, isServer } from "solid-js/web";
-
 import { Show } from "solid-js";
 import Nav from "~/components/Nav";
 import templateData from "~/data/template.json";
+import { getRequestEvent, isServer } from "solid-js/web";
 
-export default createHandler(({ request }) => {
+export default createHandler(() => {
 
 	const getHostname = () => {
-		if (isServer) {
-		const event = getRequestEvent();
-		return new URL(event!.request.url).hostname;
+		if (isServer)
+		{
+			const event = getRequestEvent();
+			return new URL(event!.request.url).hostname;
 		}
+
 		return window.location.hostname;
 	};
 
 	const hostname = getHostname();
 
+	const LOGOS: Record<string, string> = {
+		"localhost": "crearcolombia_small.png",
+		"xccui.crearcolombia.com": "crearcolombia_small.png",
+		"agrovid-xccui.crearcolombia.com": "agrovid_small.png",
+	};
 
+	const NAMES: Record<string, string> = {
+		"localhost": "xccDevOps",
+		"xccui.crearcolombia.com": "Crear Colombia",
+		"agrovid-xccui.crearcolombia.com": "Agrovid",
+	};
 
 	return (
 <StartServer
@@ -35,9 +45,9 @@ export default createHandler(({ request }) => {
 				<aside class="border-r border-sidebar-border bg-sidebar flex flex-col h-screen transition-all duration-300 ease-in-out w-[240px]">
 					<div class="h-16 flex items-center justify-between px-3 border-b border-sidebar-border">
 						<div class="flex items-center gap-2.5 overflow-hidden">
-							<img src="/images/crearcolombia_small.png" alt="Logo" class="w-8 h-8 shrink-0" />
+							<img src={`/images/${LOGOS[hostname]}`} alt="Logo" class="w-8 h-8 shrink-0" />
 							<span class="font-semibold text-sidebar-foreground tracking-tight whitespace-nowrap">
-								Crear Colombia ${hostname}
+								{NAMES[hostname]}
 							</span>
 						</div>
 					</div>

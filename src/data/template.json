@@ -3,37 +3,31 @@
 		{
 			"id": "inicio",
 			"label": "Inicio",
-			"href": "/",
+			"href": "/home",
 			"icon": "home"
 		},
 		{
 			"id": "talento-humano",
 			"label": "Talento Humano",
-			"href": "/talento-humano/empleados",
+			"href": "/hcm",
 			"icon": "users"
-		},
-		{
-			"id": "finanzas",
-			"label": "Finanzas",
-			"href": "/finanzas",
-			"icon": "trending-up"
 		},
 		{
 			"id": "sst",
 			"label": "SST",
-			"href": "/sst",
+			"href": "/has",
 			"icon": "shield"
 		},
 		{
 			"id": "tecnologias",
 			"label": "Tecnologías",
-			"href": "/tecnologias",
+			"href": "/it",
 			"icon": "cpu"
 		},
 		{
 			"id": "seguridad",
 			"label": "Seguridad Física",
-			"href": "/seguridad",
+			"href": "/watchmen",
 			"icon": "lock"
 		}
 	],

@@ -27,7 +27,7 @@ export default createHandler(({ request }) => {
 				<aside class="border-r border-sidebar-border bg-sidebar flex flex-col h-screen transition-all duration-300 ease-in-out w-[240px]">
 					<div class="h-16 flex items-center justify-between px-3 border-b border-sidebar-border">
 						<div class="flex items-center gap-2.5 overflow-hidden">
-							<img src="/crearcolombia_small.png" alt="Logo" class="w-8 h-8 shrink-0" />
+							<img src="/images/crearcolombia_small.png" alt="Logo" class="w-8 h-8 shrink-0" />
 							<span class="font-semibold text-sidebar-foreground tracking-tight whitespace-nowrap">Crear Colombia</span>
 						</div>
 					</div>

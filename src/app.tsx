@@ -2,6 +2,7 @@ import { Router, useLocation } from "@solidjs/router";
 import { FileRoutes } from "@solidjs/start/router";
 import { Suspense, createSignal, onMount, Show } from "solid-js";
 import Nav from "~/components/Nav";
+import { request } from "~/utils/request";
 import "./app.css";
 
 interface TenantInfo { name: string; logo: string; primary_color: string; light_color: string; logo_width: string; }
@@ -17,11 +18,7 @@ interface TemplateData {
 const fetchTemplate = async () => {
 	try
 	{
-		const response = await fetch("http://localhost:80/xcctechpeople/tools/sandbox/template_public");
-		if (!response.ok) {
-			throw new Error(`Error ${response.status}`);
-		}
-		return response.json() as Promise<TemplateData>;
+		return await request<TemplateData>("http://localhost:80/xcctechpeople/tools/sandbox/template_public");
 	}
 	catch (e)
 	{
@@ -73,7 +70,7 @@ return (
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user h-[18px] w-[18px] shrink-0"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
 				Mi perfil
 				</a>
-				<a href="/logout" class="flex items-center w-full rounded-md text-[13px] font-medium transition-colors gap-3 px-3 py-2 text-destructive/80 hover:bg-destructive/10 hover:text-destructive" data-state="closed" data-slot="tooltip-trigger">
+				<a href="/logout_public" class="flex items-center w-full rounded-md text-[13px] font-medium transition-colors gap-3 px-3 py-2 text-destructive/80 hover:bg-destructive/10 hover:text-destructive" data-state="closed" data-slot="tooltip-trigger">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out h-[18px] w-[18px] shrink-0"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" x2="9" y1="12" y2="12"></line></svg>
 				Cerrar sesión
 				</a>

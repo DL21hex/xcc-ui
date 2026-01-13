@@ -2,6 +2,7 @@ import { createSignal, For, Suspense, createEffect, Show } from "solid-js";
 import { useLocation } from "@solidjs/router";
 import CTA from "~/components/CTA";
 import Card from "~/components/Card";
+import { request } from "~/utils/request";
 
 interface ComponentItem {
   component: string;
@@ -14,11 +15,7 @@ const componentMap: Record<string, any> = {
 };
 
 const fetchContent = async (path: string) => {
-  const response = await fetch(`http://localhost:80/xcctechpeople/tools/sandbox/${path}`);
-  if (!response.ok) {
-    throw new Error(`Error ${response.status}`);
-  }
-  return response.json() as Promise<ComponentItem[]>;
+  return request<ComponentItem[]>(`http://localhost:80/xcctechpeople/tools/sandbox/${path}`);
 };
 
 function NotFound() {

@@ -6,6 +6,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss(), Icons({ compiler: 'solid' })]
   },
+  middleware: "./src/middleware.ts",
   server: {
     preset: "cloudflare_module",
     compatibilityDate: "2025-09-27"

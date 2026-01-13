@@ -86,7 +86,7 @@ export default function Home() {
       setItems(data);
     } catch (err) {
       try {
-        const response = await fetch("http://localhost/xcctechpeople/tools/sandbox/validate_session_public", {
+        const response = await fetch("http://localhost/xcctechpeople/system/users/auth/validate_session_public", {
             credentials: "include"
         });
 

@@ -27,7 +27,7 @@ interface TemplateData {
 const fetchTemplate = async () => {
 	try
 	{
-		return await request<TemplateData>("http://localhost:80/xcctechpeople/tools/sandbox/template_public");
+		return await request<TemplateData>("http://localhost/xcctechpeople/tools/xccui_api/template");
 	}
 	catch (e)
 	{

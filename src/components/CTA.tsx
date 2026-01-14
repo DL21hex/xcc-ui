@@ -1,6 +1,7 @@
 import { createSignal, Show } from "solid-js";
 import Button from "./Button";
 import IconAlert from '~icons/lucide/alert-triangle';
+import IconError from '~icons/lucide/x-circle';
 import IconInfo from '~icons/lucide/info';
 import IconSuccess from '~icons/lucide/check-circle-2';
 import IconArrowRight from '~icons/lucide/arrow-right';
@@ -13,6 +14,13 @@ const typeColorMap: Record<string, { border: string; bg: string; badge: string; 
     badge: "bg-amber-100 text-amber-700",
     icon: "text-amber-500 bg-amber-100",
     button: "bg-amber-600 hover:bg-amber-700",
+  },
+  error: {
+    border: "border-l-red-500",
+    bg: "bg-gradient-to-r from-red-50 to-white",
+    badge: "bg-red-100 text-red-700",
+    icon: "text-red-500 bg-red-100",
+    button: "bg-red-600 hover:bg-red-700",
   },
   info: {
     border: "border-l-blue-500",
@@ -34,10 +42,11 @@ const typeIconMap: Record<string, typeof IconAlert> = {
   warning: IconAlert,
   info: IconInfo,
   success: IconSuccess,
+  error: IconError,
 };
 
 interface CTAProps {
-  type: "warning" | "info" | "success";
+  type: "warning" | "info" | "success" | "error";
   badge: string;
   title: string;
   description: string;
@@ -45,10 +54,18 @@ interface CTAProps {
   button_href: string;
 }
 
+const buttonColorMap: Record<string, "orange" | "blue" | "green" | "red"> = {
+  warning: "orange",
+  info: "blue",
+  success: "green",
+  error: "red",
+};
+
 export default function CTA(props: CTAProps) {
   const [isDismissed, setIsDismissed] = createSignal(false);
   const colors = typeColorMap[props.type] || typeColorMap.warning;
   const IconComponent = typeIconMap[props.type] || IconAlert;
+  const buttonColor = buttonColorMap[props.type] || "orange";
 
   return (
     <Show when={!isDismissed()}>
@@ -80,7 +97,7 @@ export default function CTA(props: CTAProps) {
               href={props.button_href}
               label={props.button_name}
               icon={IconArrowRight}
-              class={`h-8 ${colors.button} text-white border-transparent`}
+              color={buttonColor}
             />
             <button
               data-slot="button"

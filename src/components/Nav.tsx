@@ -1,26 +1,24 @@
 import { For, createSignal, createEffect, type Component, type JSX } from "solid-js";
 import IconHome from '~icons/lucide/home';
-import IconUsers from '~icons/lucide/users';
-import IconTrendingUp from '~icons/lucide/trending-up';
-import IconShield from '~icons/lucide/shield';
+import IconHCM from '~icons/lucide/users';
+import IconFinancial from '~icons/lucide/trending-up';
 import IconFactory from '~icons/lucide/factory';
 import IconShoppingCart from '~icons/lucide/shopping-cart';
-import IconCpu from '~icons/lucide/cpu';
-import IconLock from '~icons/lucide/lock';
-import IconSettings from '~icons/lucide/settings';
+import IconIT from '~icons/lucide/bot';
+import IconHAS from '~icons/lucide/hard-hat';
+import IconWatchmen from '~icons/lucide/shield-user';
 
 export const [activeMenuItem, setActiveMenuItem] = createSignal<string | null>(null);
 
 const iconMap: Record<string, Component<JSX.SvgSVGAttributes<SVGSVGElement>>> = {
   home: IconHome,
-  users: IconUsers,
-  "trending-up": IconTrendingUp,
-  shield: IconShield,
-  factory: IconFactory,
-  "shopping-cart": IconShoppingCart,
-  cpu: IconCpu,
-  lock: IconLock,
-  settings: IconSettings,
+  hcm: IconHCM,
+  financial: IconFinancial,
+  has: IconHAS,
+  production: IconFactory,
+  purchasing: IconShoppingCart,
+  it: IconIT,
+  watchmen: IconWatchmen,
 };
 
 interface MenuItem {

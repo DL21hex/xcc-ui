@@ -47,11 +47,16 @@ export default function CatchAll()
 			const location = useLocation();
 			const data = await fetchContent(location.pathname);
 
-			if (data && data.content) {
+			if (data && data.content)
+			{
 				setItems(data.content);
-			} else {
+			}
+			else
+			{
 				setItems([]);
 				setNotFound(true);
+
+				// Acá debería validar si el usuario tiene sessión activa, y en caso de no tenerla redirigir al login.
 			}
 
 			if (data && data.main_menu?.set_active) {

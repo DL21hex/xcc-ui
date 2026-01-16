@@ -1,4 +1,5 @@
 import { createMiddleware } from "@solidjs/start/middleware";
+import { API_BASE_URL } from "~/constants/api";
 
 export default createMiddleware({
 	onRequest: [
@@ -14,7 +15,7 @@ export default createMiddleware({
 
 			try
 			{
-				const response = await fetch("http://localhost/xcctechpeople/xcc/system/users/validate_session_public", {
+				const response = await fetch(`${API_BASE_URL}/system/users/validate_session_public`, {
 					method: "GET",
 					headers: {
 						Cookie: cookieHeader || "",

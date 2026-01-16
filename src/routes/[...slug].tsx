@@ -1,6 +1,7 @@
 import { useLocation } from "@solidjs/router";
 import { createEffect, createSignal, For, Show, Suspense } from "solid-js";
 import { request } from "~/utils/request";
+import { API_BASE_URL } from "~/constants/api";
 import { setBreadcrumbs } from "~/components/Breadcrumb";
 
 import Card from "~/components/Card";
@@ -35,7 +36,7 @@ interface PageResponse {
 
 const fetchContent = async (path: string) => {
 	const result = path === "/" ? "/home/index_for_all" : path;
-	return request<PageResponse>(`http://localhost/xcctechpeople/xcc${result}`);
+	return request<PageResponse>(`${API_BASE_URL}${result}`);
 };
 
 export default function CatchAll()

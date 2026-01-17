@@ -9,7 +9,7 @@ const loginAction = action(async (formData: FormData) => {
 	const apiBaseUrl = getApiBaseUrl(event);
 
 	try {
-		console.log('Feching login API:', `${apiBaseUrl}/system/users/authenticate_public`);
+		//console.log('Feching login API:', `${apiBaseUrl}/system/users/authenticate_public`);
 		const response = await fetch(`${apiBaseUrl}/system/users/authenticate_public`, {
 			method: "POST",
 			headers: {

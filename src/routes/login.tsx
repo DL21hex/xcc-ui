@@ -17,8 +17,9 @@ const loginAction = action(async (formData: FormData) => {
 
 		if (!response.ok)
 		{
-			console.error("Login failed:", await response.text());
-			throw new Error("Credenciales inválidas");
+			const errorText = await response.text();
+			console.error('Login failed:', response.status, errorText);
+			throw new Error(`Credenciales inválidas (${response.status}): ${errorText}`);
 		}
 
 		const data = await response.json();

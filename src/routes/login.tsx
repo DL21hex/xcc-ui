@@ -1,22 +1,30 @@
 import { Component, createEffect } from "solid-js";
 import { action, useSubmission} from "@solidjs/router";
 import { getRequestEvent } from "solid-js/web";
-import { getApiBaseUrl } from "~/constants/api";
 
 const loginAction = action(async (formData: FormData) => {
 	"use server";
 	const event = getRequestEvent();
-	const apiBaseUrl = getApiBaseUrl(event);
 
-	try {
-		//console.log('Feching login API:', `${apiBaseUrl}/system/users/authenticate_public`);
-		const response = await fetch(`${apiBaseUrl}/system/users/authenticate_public`, {
+	const env = event?.nativeEvent.context.cloudflare.env as Env;
+
+	if (!env || !env.NX32_CORE)
+	{
+		throw new Error("El servicio Core no está conectado (Binding missing).");
+	}
+
+	try
+	{
+		const payload = Object.fromEntries(formData);
+		const request = new Request("https://dummy.nx32.app", {
 			method: "POST",
 			headers: {
-    			"Content-Type": "application/json"
+				"Content-Type": "application/json"
 			},
-			body: JSON.stringify(Object.fromEntries(formData))
+			body: JSON.stringify(payload)
 		});
+
+		const response = await env.NX32_CORE.fetch(request);
 
 		if (!response.ok)
 		{
@@ -25,10 +33,8 @@ const loginAction = action(async (formData: FormData) => {
 		}
 
 		const data = await response.json();
-
 		const setCookie = response.headers.get("Set-Cookie");
-		console.log(setCookie);
-		const headers = new Headers();
+
 		if (setCookie && event)
 		{
 			event.response.headers.append("Set-Cookie", setCookie);
@@ -38,8 +44,8 @@ const loginAction = action(async (formData: FormData) => {
 	}
 	catch (error)
 	{
-		console.error("Network or server error during login:", error);
-		throw error;
+		console.error("Error conectando con el Core:", error);
+        throw error;
 	}
 });
 

@@ -31,7 +31,7 @@ const loginAction = action(async (formData: FormData) => {
         const payload = Object.fromEntries(formData);
 
         // 2. Construir URL: Usamos el dominio que tu Rust reconoce (app.xcc32.app)
-        const urlDestino = new URL("https://app.xcc32.app/auth/login");
+        const urlDestino = new URL("https://app.xcc32.app/auth/login_public");
 
         // 3. Gestionar Headers: Clonamos los del navegador y ajustamos
         const newHeaders = new Headers(evt.request.headers);

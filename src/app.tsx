@@ -1,4 +1,4 @@
-import { Router, useLocation } from "@solidjs/router";
+import { Router, useLocation, useNavigate } from "@solidjs/router";
 import { FileRoutes } from "@solidjs/start/router";
 import { Suspense, createSignal, createEffect, Show, onMount, onCleanup, For } from "solid-js";
 import Nav from "~/components/Nav";
@@ -52,21 +52,37 @@ return (
 	<Router
 		root={(props) => {
 		const location = useLocation();
+		const navigate = useNavigate();
+
+		const handleLogout = (e: MouseEvent) => {
+			e.preventDefault();
+			localStorage.removeItem("auth_token");
+			localStorage.removeItem("template_data");
+			navigate("/login", { replace: true });
+		};
 
 		createEffect(() => {
-			if (location.pathname === "/login") {
+			if (location.pathname === "/login")
+			{
+				localStorage.removeItem("auth_token");
 				localStorage.removeItem("template_data");
-				if (template().tenant.name !== "Skeleton...") {
+
+				if (template().tenant.name !== "Skeleton...")
+				{
 					setTemplate({
 						tenant: { name: "Skeleton...", logo: "xcc", primary_color: "#219ebc", light_color: "#E3F6FB", logo_width: "96px" },
 						main_menu: [],
 						header: { full_name: "Skeleton...", position_name: "Skeleton...", avatar: "" }
 					});
 				}
-			} else {
+			}
+			else
+			{
 				const cached = localStorage.getItem("template_data");
-				if (cached) {
-					if (template().tenant.name === "Skeleton...") {
+				if (cached)
+				{
+					if (template().tenant.name === "Skeleton...")
+					{
 						setTemplate(JSON.parse(cached));
 					}
 				}
@@ -96,10 +112,17 @@ return (
 					<IconUser class="lucide h-[18px] w-[18px] shrink-0 text-sidebar-foreground/60" />
 					<span class={isSidebarCollapsed() ? 'hidden' : ''}>Mi Perfil</span>
 				</a>
-				<a href="/system/users/logout_public" class={`flex items-center w-full rounded-md text-[13px] font-medium transition-colors ${isSidebarCollapsed() ? 'justify-center px-2' : 'justify-start gap-3 px-3'} py-2 text-destructive/80 hover:bg-destructive/10 hover:text-destructive`} data-state="closed" data-slot="tooltip-trigger" title={isSidebarCollapsed() ? "Cerrar sesión" : undefined}>
-					<IconLogOut class="lucide h-[18px] w-[18px] shrink-0" />
-					<span class={isSidebarCollapsed() ? 'hidden' : ''}>Cerrar sesión</span>
-				</a>
+				<a
+                    href="#"
+                    onClick={handleLogout}
+                    class={`flex items-center w-full rounded-md text-[13px] font-medium transition-colors ${isSidebarCollapsed() ? 'justify-center px-2' : 'justify-start gap-3 px-3'} py-2 text-destructive/80 hover:bg-destructive/10 hover:text-destructive`}
+                    data-state="closed"
+                    data-slot="tooltip-trigger"
+                    title={isSidebarCollapsed() ? "Cerrar sesión" : undefined}
+                >
+                    <IconLogOut class="lucide h-[18px] w-[18px] shrink-0" />
+                    <span class={isSidebarCollapsed() ? 'hidden' : ''}>Cerrar sesión</span>
+                </a>
 			</div>
 			</div>
 		</aside>
